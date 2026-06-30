@@ -367,7 +367,12 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==================== SESSION STATE ====================
-for key, default in [('page', '📈 Dashboard'), ('theme', 'dark'), ('auto_refresh', False), ('backend_url', 'http://localhost:8000')]:
+for key, default in [
+    ('page', '📈 Dashboard'),
+    ('theme', 'dark'),
+    ('auto_refresh', False),
+    ('backend_url', 'https://neuralsales-api.onrender.com')
+]:
     if key not in st.session_state:
         st.session_state[key] = default
 
