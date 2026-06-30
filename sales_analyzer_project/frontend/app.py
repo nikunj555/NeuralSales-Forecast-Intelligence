@@ -1185,17 +1185,20 @@ elif page == "📊 Model Comparison":
 
     # ================= BEST MODEL =================
 
-    best_model = comparison_df.sort_values("R2 Score",ascending=False).iloc[0]
-    st.success(
-        f"🏆 Best Performing Model
+    best_model = comparison_df.sort_values(
+    by="R2 Score",
+    ascending=False
+).iloc[0]
 
-"
-        f"Model: {best_model['Model']}
-"
-        f"R² Score: {best_model['R2 Score']}
-"
-        f"Accuracy: {best_model.get('Accuracy','N/A')}%"
-    )
+st.info(f"""
+### 🏆 Best Performing Model
+
+**Model:** {best_model['Model']}
+
+**R² Score:** {best_model['R2 Score']:.3f}
+
+**Accuracy:** {best_model['Accuracy']}%
+""")
 
 # ==================== EXPLAINABLE AI PAGE ====================
 
