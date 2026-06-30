@@ -367,12 +367,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==================== SESSION STATE ====================
-for key, default in [
-    ('page', '📈 Dashboard'),
-    ('theme', 'dark'),
-    ('auto_refresh', False),
-    ('backend_url', 'https://neuralsales-api.onrender.com')
-]:
+for key, default in [('page', '📈 Dashboard'), ('theme', 'dark'), ('auto_refresh', False), ('backend_url', 'https://neuralsales-api.onrender.com')]:
     if key not in st.session_state:
         st.session_state[key] = default
 
@@ -1102,41 +1097,11 @@ elif page == "📊 Model Comparison":
 
     # ================= TOP MODEL CARDS =================
 
-    top_models = comparison_df.sort_values(
-        by="R2 Score",
-        ascending=False
-    ).head(4)
-
-    cols = st.columns(4)
-
-    colors = [
-        "#00d4ff",
-        "#00e5a0",
-        "#ffb547",
-        "#8b5cf6"
-    ]
-
-    for i, (_, row) in enumerate(top_models.iterrows()):
-
-        with cols[i]:
-
-            st.container(border=True)
-
-            st.markdown(
-                f"""
-### {row['Model']}
-                """
-            )
-
-            st.markdown(
-                f"""
-<span style='font-size:2rem; font-weight:800; color:{colors[i]};'>
-{row['R2 Score']}
-</span>
-                """,
-                unsafe_allow_html=True
-            )
-
+    top_models = comparison_df.sort_values(by="R2 Score",ascending=False).head(4)
+    cols=st.columns(4)
+    for col,(_,row) in zip(cols,top_models.iterrows()):
+        with col:
+            st.metric(row["Model"],f"{row['R2 Score']:.3f}")
             st.caption("R² Accuracy Score")
 
     st.markdown("<br>", unsafe_allow_html=True)
@@ -1220,18 +1185,18 @@ elif page == "📊 Model Comparison":
 
     # ================= BEST MODEL =================
 
-    best_model = comparison_df.iloc[0]
-
+    best_model = comparison_df.sort_values("R2 Score",ascending=False).iloc[0]
     st.success(
-        f"""
-🏆 Best Performing Model
+        f"🏆 Best Performing Model
 
-{best_model['Model']} achieved the highest R² score of
-{best_model['R2 Score']}
-
-Accuracy: {best_model['Accuracy']}%
-"""
+"
+        f"Model: {best_model['Model']}
+"
+        f"R² Score: {best_model['R2 Score']}
+"
+        f"Accuracy: {best_model.get('Accuracy','N/A')}%"
     )
+
 # ==================== EXPLAINABLE AI PAGE ====================
 
 elif page == "🧠 Explainable AI":
