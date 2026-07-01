@@ -579,8 +579,13 @@ elif page == "🔮 Forecast":
         marker_color=bar_colors, marker_line_width=0,
         hovertemplate='%{y:.2f}%<extra>Growth</extra>'), row=2, col=1)
     fig.add_hline(y=0, line_dash='dash', line_color='#3d5068', row=2, col=1)
-    fig.update_layout(**PLOTLY_LAYOUT, height=560, hovermode='x unified',
-        legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1))
+    fig.update_layout(
+        paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
+        font=dict(family='DM Sans', color='#7a90a8', size=11),
+        height=560, hovermode='x unified', showlegend=True,
+        legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1, bgcolor='rgba(0,0,0,0)', bordercolor='#1e2d40'),
+        margin=dict(l=10, r=10, t=40, b=10)
+    )
     fig.update_yaxes(title_text='Sales ($)', tickprefix='$', gridcolor='#1e2d40', color='#7a90a8', row=1, col=1)
     fig.update_yaxes(title_text='Growth %', ticksuffix='%', gridcolor='#1e2d40', color='#7a90a8', row=2, col=1)
     st.plotly_chart(fig, use_container_width=True)
