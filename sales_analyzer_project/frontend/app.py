@@ -734,9 +734,8 @@ elif page == "📊 Model Comparison":
             text=mae_sorted['MAE'].astype(int), textposition='outside',
             textfont=dict(color='#7a90a8', size=9),
             hovertemplate='%{x}<br>MAE: $%{y:,.0f}<extra></extra>'), row=1, col=2)
-    fig_cmp.update_layout(**PLOTLY_LAYOUT, height=420, showlegend=False,
-        xaxis=dict(tickangle=-30, gridcolor='#1e2d40', linecolor='#1e2d40'),
-        xaxis2=dict(tickangle=-30, gridcolor='#1e2d40', linecolor='#1e2d40'))
+    fig_cmp.update_layout(**PLOTLY_LAYOUT, height=420, showlegend=False)
+    fig_cmp.update_xaxes(tickangle=-30, gridcolor='#1e2d40', linecolor='#1e2d40')
     st.plotly_chart(fig_cmp, use_container_width=True)
 
     st.markdown("<div class='section-title'>Detailed Metrics</div>", unsafe_allow_html=True)
@@ -768,7 +767,7 @@ elif page == "🧠 Explainable AI":
         except Exception:
             pass
 
-    if shap_data:
+    if shap_data and len(shap_data.get('features', [])) == len(shap_data.get('importance', [])):
         explain_df = pd.DataFrame({'Feature': shap_data['features'], 'Importance': shap_data['importance']})
     else:
         explain_df = pd.DataFrame({
