@@ -32,7 +32,9 @@ html, body, [class*="css"], .stApp {
     color: var(--text-primary) !important;
 }
 .stApp { background-color: var(--bg-primary) !important; }
-#MainMenu, footer, header { visibility: hidden; }
+#MainMenu, footer { visibility: hidden; }
+header { visibility: visible; }
+[data-testid="collapsedControl"] { visibility: visible !important; }
 .stDeployButton { display: none; }
 [data-testid="stSidebar"] {
     background: var(--bg-secondary) !important;
