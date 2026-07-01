@@ -214,11 +214,15 @@ backend_available, health_data = check_backend(BACKEND_URL)
 # ── Data loaders ──
 @st.cache_data(ttl=300)
 def load_historical_data():
-    for path in ['../data/sales_data.csv', 'data/sales_data.csv', 'sales_analyzer_project/data/sales_data.csv', './sales_data.csv']:
-        if os.path.exists(path):
-            df = pd.read_csv(path)
-            df['date'] = pd.to_datetime(df['date'])
-            return df.sort_values('date').reset_index(drop=True)
+    paths = ['../data/sales_data.csv', 'data/sales_data.csv', 'sales_analyzer_project/data/sales_data.csv', './sales_data.csv']
+    for path in paths:
+        try:
+            if os.path.exists(path):
+                df = pd.read_csv(path)
+                df['date'] = pd.to_datetime(df['date'])
+                return df.sort_values('date').reset_index(drop=True)
+        except Exception:
+            continue
     np.random.seed(42)
     n = 730
     dates = pd.date_range('2022-01-01', periods=n)
@@ -825,9 +829,9 @@ elif page == "🧠 Explainable AI":
             hovertemplate='%{label}<br>%{percent}<extra></extra>'
         ))
         fig_pie.update_layout(**PLOTLY_LAYOUT, height=380,
-            legend=dict(font=dict(size=10, family='DM Mono')),
-            annotations=[dict(text='SHAP', x=0.5, y=0.5, 
-    font=dict(size=16, family='Syne', color='#f0f6ff'), showarrow=False)])
+            legend=dict(font=dict(size=10, family='DM Mono')))
+        fig_pie.add_annotation(text='SHAP', x=0.5, y=0.5, showarrow=False,
+            font=dict(size=16, color='#f0f6ff'))
         st.plotly_chart(fig_pie, use_container_width=True)
 
     st.markdown("""
