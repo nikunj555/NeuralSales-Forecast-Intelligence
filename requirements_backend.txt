@@ -1,9 +1,5 @@
 uirements · TXT
-streamlit==1.32.0
-pandas==2.2.1
-numpy==1.26.4
 plotly==5.20.0
-requests==2.31.0
 fastapi==0.110.0
 uvicorn==0.29.0
 pandas==2.2.1
@@ -14,3 +10,8 @@ xgboost==2.0.3
 shap==0.45.0
 pydantic==2.6.4
 python-multipart==0.0.9
+streamlit==1.41.1
+pandas==2.2.3
+numpy==2.1.0
+requests==2.32.3
+
