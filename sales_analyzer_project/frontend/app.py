@@ -826,8 +826,8 @@ elif page == "🧠 Explainable AI":
         ))
         fig_pie.update_layout(**PLOTLY_LAYOUT, height=380,
             legend=dict(font=dict(size=10, family='DM Mono')),
-            annotations=[dict(text='SHAP', x=0.5, y=0.5, font_size=16,
-                font_family='Syne', font_color='#f0f6ff', showarrow=False)])
+            annotations=[dict(text='SHAP', x=0.5, y=0.5, 
+    font=dict(size=16, family='Syne', color='#f0f6ff'), showarrow=False)])
         st.plotly_chart(fig_pie, use_container_width=True)
 
     st.markdown("""
