@@ -503,14 +503,16 @@ if page == "📈 Dashboard":
 # ══════════════════════════════════════════════════════
 elif page == "🔮 Forecast":
     st.markdown("<div class='section-title'>30-Day ML Forecast</div>", unsafe_allow_html=True)
+    forecast = None
+    
     if backend_available:
         with st.spinner("Computing neural forecast…"):
             forecast = fetch_forecast(BACKEND_URL)
-    else:
-        forecast = generate_demo_forecast(df) if df is not None else None
-
-    if not forecast:
-        st.error("Could not generate forecast. Backend offline and no historical data available.")
+    
+    if not forecast and df is not None:
+        forecast = generate_demo_forecast(df)
+    elif not forecast:
+        st.error("Could not generate forecast. No historical data available.")
         st.stop()
 
     preds = forecast['predictions']
@@ -828,8 +830,13 @@ elif page == "🧠 Explainable AI":
             textfont=dict(family='DM Mono', color='#7a90a8', size=10),
             hovertemplate='%{label}<br>%{percent}<extra></extra>'
         ))
-        fig_pie.update_layout(**PLOTLY_LAYOUT, height=380,
-            legend=dict(font=dict(size=10, family='DM Mono')))
+        fig_pie.update_layout(
+            paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
+            height=380, showlegend=True,
+            legend=dict(font=dict(size=10, family='DM Mono'), bgcolor='rgba(0,0,0,0)', bordercolor='#1e2d40'),
+            font=dict(family='DM Sans', color='#7a90a8', size=11),
+            margin=dict(l=10, r=10, t=40, b=10)
+        )
         fig_pie.add_annotation(text='SHAP', x=0.5, y=0.5, showarrow=False,
             font=dict(size=16, color='#f0f6ff'))
         st.plotly_chart(fig_pie, use_container_width=True)
