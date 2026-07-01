@@ -214,7 +214,7 @@ backend_available, health_data = check_backend(BACKEND_URL)
 # ── Data loaders ──
 @st.cache_data(ttl=300)
 def load_historical_data():
-    for path in ['../data/sales_data.csv', 'data/sales_data.csv', './sales_data.csv']:
+    for path in ['../data/sales_data.csv', 'data/sales_data.csv', 'sales_analyzer_project/data/sales_data.csv', './sales_data.csv']:
         if os.path.exists(path):
             df = pd.read_csv(path)
             df['date'] = pd.to_datetime(df['date'])
